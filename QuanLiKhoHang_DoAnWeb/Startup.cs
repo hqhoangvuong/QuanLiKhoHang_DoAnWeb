@@ -34,6 +34,7 @@ namespace QuanLiKhoHang_DoAnWeb
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,12 +59,12 @@ namespace QuanLiKhoHang_DoAnWeb
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                routes.MapRoute(
+                  name: "areas",
+                  template: "{area=Watcher}/{controller=Home}/{action=Index}/{id?}"
+                );
             });
         }
     }

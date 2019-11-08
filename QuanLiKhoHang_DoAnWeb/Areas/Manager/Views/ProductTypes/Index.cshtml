@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QuanLiKhoHang_DoAnWeb.Models.ProductTypes>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Product Type List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="CreateProductType" class="btn btn-info">&nbsp; New Product Type</a>
+    </div>
+</div>
+
+<br/>
+
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m=>m.ProductTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m=>m.Description)
+            </th>
+        </tr>
+
+        @foreach(var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(m => item.ProductTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.Description)
+            </td>
+            <td>
+                <partial name="_TableButtonPartial" model="item.ProductTypeId" />
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>

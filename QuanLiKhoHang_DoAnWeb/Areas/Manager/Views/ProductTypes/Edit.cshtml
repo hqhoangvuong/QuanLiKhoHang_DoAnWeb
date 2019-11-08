@@ -1,0 +1,41 @@
+﻿@model QuanLiKhoHang_DoAnWeb.Models.ProductTypes
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Sửa ngành hàng</h1>
+
+<form method="post" asp-action="CreateProductType">
+    <div class="p-4 border rounded">
+        <input type="hidden" asp-for="ProductTypeId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-3 ">
+                <label asp-for="ProductTypeName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="ProductTypeName" />
+            </div>
+            <span asp-validation-for="ProductTypeName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3 ">
+                <label asp-for="Description"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Description" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" asp-route-id="@Model.ProductTypeId" value="Tạo" />
+            <a asp-action="Index" class="btn btn-success">Quay lại</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
