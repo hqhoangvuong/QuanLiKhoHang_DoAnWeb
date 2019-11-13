@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -8,6 +8,10 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20191101171922_dbCreate.cs" />
     <Compile Remove="Data\Migrations\20191101171922_dbCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191112135710_DbCreate.cs" />
+    <Compile Remove="Data\Migrations\20191112135710_DbCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191112153432_dbCreate.cs" />
+    <Compile Remove="Data\Migrations\20191112153432_dbCreate.Designer.cs" />
   </ItemGroup>
 
 

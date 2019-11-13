@@ -2,43 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using QuanLiKhoHang_DoAnWeb.Data;
 using Microsoft.AspNetCore.Mvc;
+using QuanLiKhoHang_DoAnWeb.Data;
 using QuanLiKhoHang_DoAnWeb.Models;
 
 namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
 {
     [Area("Manager")]
-    public class ProductTypesController : Controller
+    public class ClientsController : Controller
     {
         private readonly ApplicationDbContext _db;
 
-        public ProductTypesController(ApplicationDbContext db)
+        public ClientsController(ApplicationDbContext db)
         {
             _db = db;
         }
 
         public IActionResult Index()
         {
-            return View(_db.productTypes.ToList());
+            return View(_db.clients.ToList());
         }
 
-        public IActionResult CreateProductType()
+        public IActionResult CreateClient()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateProductType(ProductTypes productType)
+        public async Task<IActionResult> CreateClient(Clients client)
         {
             if (ModelState.IsValid)
             {
-                _db.Add(productType);
+                _db.Add(client);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(productType);
+            return View(client);
         }
 
         public async Task<IActionResult> Edit(int? Id)
@@ -46,7 +46,7 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
             if (Id == null)
                 return NotFound();
 
-            var productType = await _db.productTypes.FindAsync(Id);
+            var productType = await _db.clients.FindAsync(Id);
             if (productType == null)
                 return NotFound();
 
@@ -55,19 +55,19 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int Id, ProductTypes productType)
+        public async Task<IActionResult> Edit(int Id, Clients client)
         {
-            if (Id != productType.Id)
+            if (Id != client.Id)
                 return NotFound();
 
             if (ModelState.IsValid)
             {
-                _db.Update(productType);
+                _db.Update(client);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(productType);
+            return View(client);
         }
 
         public async Task<IActionResult> Delete(int? Id)
@@ -75,19 +75,19 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
             if (Id == null)
                 return NotFound();
 
-            var productType = await _db.productTypes.FindAsync(Id);
-            if (productType == null)
+            var client = await _db.productTypes.FindAsync(Id);
+            if (client == null)
                 return NotFound();
 
-            return View(productType);
+            return View(client);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var productType = await _db.productTypes.FindAsync(id);
-            _db.productTypes.Remove(productType);
+            var client = await _db.clients.FindAsync(id);
+            _db.clients.Remove(client);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

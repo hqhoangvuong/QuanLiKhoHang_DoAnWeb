@@ -219,9 +219,9 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.Customers", b =>
+            modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.Clients", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -229,14 +229,11 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Email")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
@@ -245,14 +242,14 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<bool>("Sex")
                         .HasColumnType("bit");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("Id");
 
-                    b.ToTable("customers");
+                    b.ToTable("clients");
                 });
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.ProductTypes", b =>
                 {
-                    b.Property<int>("ProductTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -260,47 +257,39 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProductTypeName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProductTypeId");
+                    b.HasKey("Id");
 
                     b.ToTable("productTypes");
                 });
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.Products", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<float>("DefaultBuyingPrice")
-                        .HasColumnType("real");
+                    b.Property<double>("DefaultBuyingPrice")
+                        .HasColumnType("float");
 
-                    b.Property<float>("DefaultSellingPrice")
-                        .HasColumnType("real");
-
-                    b.Property<bool>("Deleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("0");
+                    b.Property<double>("DefaultSellingPrice")
+                        .HasColumnType("float");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ProductTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductTypesProductTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("SKU")
@@ -311,16 +300,21 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                         .HasColumnType("int")
                         .HasDefaultValueSql("0");
 
-                    b.HasKey("ProductId");
+                    b.Property<int>("VendorId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ProductTypesProductTypeId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductTypeId");
+
+                    b.HasIndex("VendorId");
 
                     b.ToTable("products");
                 });
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.PurchaseOrderDetails", b =>
                 {
-                    b.Property<int>("ProductReceiptId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -328,11 +322,11 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ImportProductId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int>("PurchaseOrderId")
                         .HasColumnType("int");
@@ -343,7 +337,9 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
-                    b.HasKey("ProductReceiptId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImportProductId");
 
                     b.HasIndex("PurchaseOrderId");
 
@@ -360,28 +356,22 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<DateTimeOffset>("OrderDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("PurchaseOrderName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
                     b.Property<int>("VendorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VendorsVendorId")
-                        .HasColumnType("int");
-
                     b.HasKey("PurchaseOrderId");
 
-                    b.HasIndex("VendorsVendorId");
+                    b.HasIndex("VendorId");
 
                     b.ToTable("purchaseOrders");
                 });
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.SaleOrderDetails", b =>
                 {
-                    b.Property<int>("ProductIssueId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -389,19 +379,21 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ExportProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("SaleOrderId")
                         .HasColumnType("int");
 
-                    b.Property<double>("SubTotal")
-                        .HasColumnType("float");
-
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
-                    b.HasKey("ProductIssueId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExportProductId");
 
                     b.HasIndex("SaleOrderId");
 
@@ -410,15 +402,12 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.SaleOrders", b =>
                 {
-                    b.Property<int>("SaleOrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CustomersCustomerId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -427,22 +416,19 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PurchaseOrderName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<float>("Total")
                         .HasColumnType("real");
 
-                    b.HasKey("SaleOrderId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CustomersCustomerId");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("saleOrders");
                 });
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.Vendors", b =>
                 {
-                    b.Property<int>("VendorId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -456,14 +442,14 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VendorName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("VendorId");
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("vendors");
                 });
@@ -521,15 +507,29 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.Products", b =>
                 {
-                    b.HasOne("QuanLiKhoHang_DoAnWeb.Models.ProductTypes", null)
-                        .WithMany("products")
-                        .HasForeignKey("ProductTypesProductTypeId");
+                    b.HasOne("QuanLiKhoHang_DoAnWeb.Models.ProductTypes", "ProductTypes")
+                        .WithMany()
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QuanLiKhoHang_DoAnWeb.Models.Vendors", "vendor")
+                        .WithMany()
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.PurchaseOrderDetails", b =>
                 {
+                    b.HasOne("QuanLiKhoHang_DoAnWeb.Models.Products", "product")
+                        .WithMany()
+                        .HasForeignKey("ImportProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("QuanLiKhoHang_DoAnWeb.Models.PurchaseOrders", "PurchaseOrder")
-                        .WithMany("purchaseOrderDetail")
+                        .WithMany()
                         .HasForeignKey("PurchaseOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -537,15 +537,23 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.PurchaseOrders", b =>
                 {
-                    b.HasOne("QuanLiKhoHang_DoAnWeb.Models.Vendors", null)
-                        .WithMany("purchaseorders")
-                        .HasForeignKey("VendorsVendorId");
+                    b.HasOne("QuanLiKhoHang_DoAnWeb.Models.Vendors", "vendor")
+                        .WithMany()
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.SaleOrderDetails", b =>
                 {
+                    b.HasOne("QuanLiKhoHang_DoAnWeb.Models.Products", "product")
+                        .WithMany()
+                        .HasForeignKey("ExportProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("QuanLiKhoHang_DoAnWeb.Models.SaleOrders", "SaleOrder")
-                        .WithMany("SaleOrderDetail")
+                        .WithMany()
                         .HasForeignKey("SaleOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -553,9 +561,11 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
 
             modelBuilder.Entity("QuanLiKhoHang_DoAnWeb.Models.SaleOrders", b =>
                 {
-                    b.HasOne("QuanLiKhoHang_DoAnWeb.Models.Customers", null)
-                        .WithMany("saleorders")
-                        .HasForeignKey("CustomersCustomerId");
+                    b.HasOne("QuanLiKhoHang_DoAnWeb.Models.Clients", "client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

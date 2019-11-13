@@ -7,16 +7,16 @@
 
 <form method="post" asp-action="CreateProductType">
     <div class="p-4 border rounded">
-        <input type="hidden" asp-for="ProductTypeId" />
+        <input type="hidden" asp-for="Id" />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group row">
             <div class="col-3 ">
-                <label asp-for="ProductTypeName"></label>
+                <label asp-for="Name"></label>
             </div>
             <div class="col-5">
-                <input asp-for="ProductTypeName" />
+                <input asp-for="Name" />
             </div>
-            <span asp-validation-for="ProductTypeName" class="text-danger"></span>
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <div class="form-group row">
@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" asp-route-id="@Model.ProductTypeId" value="Tạo" />
+            <input type="submit" class="btn btn-primary" asp-route-id="@Model.Id" value="Cập nhật" />
             <a asp-action="Index" class="btn btn-success">Quay lại</a>
         </div>
     </div>

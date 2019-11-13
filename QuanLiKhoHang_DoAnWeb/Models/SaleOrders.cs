@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,18 +10,21 @@ namespace QuanLiKhoHang_DoAnWeb.Models
     public class SaleOrders
     {
         [Key]
-        public int SaleOrderId { get; set; }
-        public string PurchaseOrderName { get; set; }
+        public int Id { get; set; }
 
-        public int CustomerId { get; set; }
+        [Display(Name = "Khách hàng")]
+        public int ClientId { get; set; }
 
+        [ForeignKey("ClientId")]
+        public Clients client { get; set; }
+
+        [Display(Name = "Chú thích")]
         public string Description { get; set; }
 
         [Required]
         public DateTime OrderDate { get; set; }
 
+        [Display(Name = "Tổng cộng")]
         public float Total { get; set; }
-
-        public List<SaleOrderDetails> SaleOrderDetail { get; set; } = new List<SaleOrderDetails>();
     }
 }

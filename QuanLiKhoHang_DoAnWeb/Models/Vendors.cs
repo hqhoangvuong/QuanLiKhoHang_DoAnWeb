@@ -9,10 +9,10 @@ namespace QuanLiKhoHang_DoAnWeb.Models
     public class Vendors
     {
         [Key]
-        public int VendorId { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public string VendorName { get; set; }
+        public string Name { get; set; }
 
         public string Address { get; set; }
 
@@ -22,6 +22,5 @@ namespace QuanLiKhoHang_DoAnWeb.Models
 
         public string Phone { get; set; }
 
-        public List<PurchaseOrders> purchaseorders { get; set; } = new List<PurchaseOrders>();
     }
 }

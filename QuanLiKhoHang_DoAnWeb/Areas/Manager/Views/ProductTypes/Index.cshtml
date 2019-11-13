@@ -20,7 +20,7 @@
     <table class="table table-striped border">
         <tr class="table-info">
             <th>
-                @Html.DisplayNameFor(m=>m.ProductTypeName)
+                @Html.DisplayNameFor(m=>m.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(m=>m.Description)
@@ -31,13 +31,13 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(m => item.ProductTypeName)
+                @Html.DisplayFor(m => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(m => item.Description)
             </td>
             <td>
-                <partial name="_TableButtonPartial" model="item.ProductTypeId" />
+                <partial name="_TableButtonPartial" model="item.Id" />
             </td>
         </tr>
         }

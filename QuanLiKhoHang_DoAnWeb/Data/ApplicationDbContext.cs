@@ -17,16 +17,13 @@ namespace QuanLiKhoHang_DoAnWeb.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Products>()
-                .Property(a => a.Deleted)
-                .HasDefaultValueSql("0");
-            modelBuilder.Entity<Products>()
                 .Property(a => a.Stock)
                 .HasDefaultValueSql("0");
         }
 
         public DbSet<ProductTypes> productTypes { get; set; }
         public DbSet<Products> products { get; set; }
-        public DbSet<Customers> customers { get; set; }
+        public DbSet<Clients> clients { get; set; }
         public DbSet<Vendors> vendors { get; set; }
         public DbSet<SaleOrders> saleOrders { get; set; }
         public DbSet<SaleOrderDetails> saleOrderDetails { get; set; }
