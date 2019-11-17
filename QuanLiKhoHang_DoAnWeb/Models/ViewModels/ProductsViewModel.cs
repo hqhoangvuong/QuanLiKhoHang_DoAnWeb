@@ -7,7 +7,8 @@ namespace QuanLiKhoHang_DoAnWeb.Models.ViewModels
 {
     public class ProductsViewModel
     {
-        public Products product { get; set; }
         public IEnumerable<ProductTypes> productType { get; set; }
+        public IEnumerable<Vendors> vendor { get; set; }
+        public Products product { get; set; }
     }
 }

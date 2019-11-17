@@ -15,6 +15,7 @@ namespace QuanLiKhoHang_DoAnWeb.Models
         [Display(Name = "Khách hàng")]
         public int ClientId { get; set; }
 
+        [Display(Name = "Khách hàng")]
         [ForeignKey("ClientId")]
         public Clients client { get; set; }
 
@@ -22,6 +23,7 @@ namespace QuanLiKhoHang_DoAnWeb.Models
         public string Description { get; set; }
 
         [Required]
+        [Display(Name = "Ngày đặt hàng")]
         public DateTime OrderDate { get; set; }
 
         [Display(Name = "Tổng cộng")]

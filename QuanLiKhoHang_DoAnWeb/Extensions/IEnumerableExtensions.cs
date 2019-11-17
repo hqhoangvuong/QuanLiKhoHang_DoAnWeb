@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GraniteHouse.Extensions
+namespace QuanLiKhoHang_DoAnWeb.Extensions
 {
     public static class IEnumerableExtensions
     {
@@ -26,6 +26,18 @@ namespace GraniteHouse.Extensions
                 selectedValue = "";
             }
             return from item in items
+                   select new SelectListItem
+                   {
+                       Text = item.GetPropertyValue("Name"),
+                       Value = item.GetPropertyValue("Id"),
+                       Selected = item.GetPropertyValue("Id").Equals(selectedValue.ToString())
+                   };
+        }
+
+        public static IEnumerable<SelectListItem> ToSelectItem<T>(this IEnumerable<T> items, int selectedValue)
+        {
+            return from item in items
+                   where Int32.Parse(item.GetPropertyValue("Id")) == selectedValue
                    select new SelectListItem
                    {
                        Text = item.GetPropertyValue("Name"),

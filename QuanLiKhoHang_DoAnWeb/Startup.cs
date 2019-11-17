@@ -12,6 +12,7 @@ using QuanLiKhoHang_DoAnWeb.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Globalization;
 
 namespace QuanLiKhoHang_DoAnWeb
 {
@@ -20,6 +21,7 @@ namespace QuanLiKhoHang_DoAnWeb
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
         }
 
         public IConfiguration Configuration { get; }
@@ -30,7 +32,9 @@ namespace QuanLiKhoHang_DoAnWeb
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultUI()
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();

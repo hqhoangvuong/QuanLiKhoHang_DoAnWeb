@@ -1,0 +1,48 @@
+﻿@model QuanLiKhoHang_DoAnWeb.Models.ViewModels.SaleOrdersViewModel
+@using QuanLiKhoHang_DoAnWeb.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<br />
+<h2 class="text-info">Tạo lệnh bán(xuất kho)</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-2">
+                <label asp-for="saleOrder.ClientId"></label>
+            </div>
+            <div class="col-3">
+                <select asp-for="@Model.saleOrder.ClientId" asp-items="Model.client.ToSelectListItem(Model.saleOrder.ClientId)" class="form-control"></select>
+            </div>
+        </div>
+    <br />
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="saleOrder.Description"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="saleOrder.Description" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="saleOrder.OrderDate"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="saleOrder.OrderDate" type="datetime-local" class="form-control" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Create" />
+            <a asp-action="Index" class="btn btn-success">Back to List</a>
+        </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

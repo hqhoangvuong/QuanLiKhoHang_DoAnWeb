@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using QuanLiKhoHang_DoAnWeb.Data;
 using Microsoft.AspNetCore.Mvc;
 using QuanLiKhoHang_DoAnWeb.Models;
+using Microsoft.AspNetCore.Authorization;
+using QuanLiKhoHang_DoAnWeb.Utility;
 
 namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
 {
@@ -41,6 +43,7 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
             return View(productType);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         public async Task<IActionResult> Edit(int? Id)
         {
             if (Id == null)
@@ -70,6 +73,7 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
             return View(productType);
         }
 
+        [Authorize(Roles = SD.AdminEndUser)]
         public async Task<IActionResult> Delete(int? Id)
         {
             if (Id == null)

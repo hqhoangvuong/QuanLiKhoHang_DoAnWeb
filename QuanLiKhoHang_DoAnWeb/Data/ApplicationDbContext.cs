@@ -29,5 +29,6 @@ namespace QuanLiKhoHang_DoAnWeb.Data
         public DbSet<SaleOrderDetails> saleOrderDetails { get; set; }
         public DbSet<PurchaseOrders> purchaseOrders { get; set; }
         public DbSet<PurchaseOrderDetails> purchaseOrderDetails { get; set; }
+        public DbSet<ApplicationUsers> applicationUsers { get; set; }
     }
 }

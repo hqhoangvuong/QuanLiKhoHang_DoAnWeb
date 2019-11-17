@@ -10,10 +10,13 @@ namespace QuanLiKhoHang_DoAnWeb.Models
     public class PurchaseOrders
     {
         [Key]
-        public int PurchaseOrderId { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Nhà cung cấp")]
         public int VendorId { get; set; }
+
+        [Display(Name = "Chú thích")]
+        public string Description { get; set; }
 
         [ForeignKey("VendorId")]
         public virtual Vendors vendor { get; set; }

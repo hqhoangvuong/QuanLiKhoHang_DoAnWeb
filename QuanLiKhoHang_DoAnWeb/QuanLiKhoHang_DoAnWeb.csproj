@@ -12,6 +12,10 @@
     <Compile Remove="Data\Migrations\20191112135710_DbCreate.Designer.cs" />
     <Compile Remove="Data\Migrations\20191112153432_dbCreate.cs" />
     <Compile Remove="Data\Migrations\20191112153432_dbCreate.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191113074056_addApplicationUserToDb.cs" />
+    <Compile Remove="Data\Migrations\20191113074056_addApplicationUserToDb.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191116024853_createBd3.cs" />
+    <Compile Remove="Data\Migrations\20191116024853_createBd3.Designer.cs" />
   </ItemGroup>
 
 
@@ -29,6 +33,14 @@
   <ItemGroup>
     <Folder Include="Areas\Employee\Controllers\" />
     <Folder Include="Areas\Employee\Views\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="Areas\Manager\Views\SaleOrders\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<QuanLiKhoHang_DoAnWeb.Models.Vendors>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Danh sách nhà cung cấp</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info">&nbsp; Thêm mới nhà cung cấp</a>
+    </div>
+</div>
+
+<br />
+
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.ContactPerson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Phone)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.ContactPerson)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Phone)
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

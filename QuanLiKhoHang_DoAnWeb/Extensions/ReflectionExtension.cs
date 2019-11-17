@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GraniteHouse.Extensions
+namespace QuanLiKhoHang_DoAnWeb.Extensions
 {
     public static class ReflectionExtension
     {

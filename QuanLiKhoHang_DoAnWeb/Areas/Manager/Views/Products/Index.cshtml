@@ -1,7 +1,87 @@
-﻿
+﻿@model IEnumerable<QuanLiKhoHang_DoAnWeb.Models.Products>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<br />
+<br />
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info"> Danh sách hàng trong kho</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Thêm mới sản phẩm </a>
+    </div>
+</div>
+
+<br />
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.ProductTypes.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.vendor.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DefaultBuyingPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DefaultSellingPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.SKU)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Stock)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(m => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.ProductTypes.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.vendor.Name)
+        </td>
+        <td>
+            @String.Format("{0:c}", item.DefaultBuyingPrice)
+        </td>
+        <td>
+            @String.Format("{0:c}", item.DefaultSellingPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.SKU)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.Stock)
+        </td>
+        <td>
+            <partial name="_TableButtonPartial" model="item.Id" />
+        </td>
+    </tr>
+
+        }
+    </table>
+</div>
+
+
 

@@ -66,7 +66,6 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
             return View(client);
         }
 
