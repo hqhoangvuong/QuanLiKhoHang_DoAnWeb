@@ -39,6 +39,12 @@ namespace QuanLiKhoHang_DoAnWeb
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvc(options => options.EnableEndpointRouting = false);
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +65,7 @@ namespace QuanLiKhoHang_DoAnWeb
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -67,7 +74,7 @@ namespace QuanLiKhoHang_DoAnWeb
             {
                 routes.MapRoute(
                   name: "areas",
-                  template: "{area=Watcher}/{controller=Home}/{action=Index}/{id?}"
+                  template: "{area=Client}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
         }

@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<QuanLiKhoHang_DoAnWeb.Models.Products>
+@using System.Globalization
 @{
     ViewData["Title"] = "Index";
+}
+
+@{
+    CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
 }
 
 <br />
@@ -49,36 +54,35 @@
 
         @foreach (var item in Model)
         {
-    <tr>
-        <td>
-            @Html.DisplayFor(m => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(m => item.ProductTypes.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(m => item.vendor.Name)
-        </td>
-        <td>
-            @String.Format("{0:c}", item.DefaultBuyingPrice)
-        </td>
-        <td>
-            @String.Format("{0:c}", item.DefaultSellingPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(m => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(m => item.SKU)
-        </td>
-        <td>
-            @Html.DisplayFor(m => item.Stock)
-        </td>
-        <td>
-            <partial name="_TableButtonPartial" model="item.Id" />
-        </td>
-    </tr>
-
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.ProductTypes.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.vendor.Name)
+                </td>
+                <td>
+                    @String.Format(cul.NumberFormat, "{0:c}", item.DefaultBuyingPrice)
+                </td>
+                <td>
+                    @String.Format(cul.NumberFormat, "{0:c}", item.DefaultSellingPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.SKU)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Stock)
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+            </tr>
         }
     </table>
 </div>

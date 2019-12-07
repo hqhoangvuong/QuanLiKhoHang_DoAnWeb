@@ -69,6 +69,9 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Identity.Pages.Account
             [Required]
             public string Name { get; set; }
 
+            [DataType(DataType.PhoneNumber)]
+            public string PhoneNumber { get; set; }
+
             [Display(Name = "Quản lí")]
             public bool isAdmin { get; set; }
         }
@@ -85,7 +88,7 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUsers { UserName = Input.Email, Email = Input.Email, Name = Input.Name };
+                var user = new ApplicationUsers { UserName = Input.Email, Email = Input.Email, Name = Input.Name, PhoneNumber = Input.PhoneNumber };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

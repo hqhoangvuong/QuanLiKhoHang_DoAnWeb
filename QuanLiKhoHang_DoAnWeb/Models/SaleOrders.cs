@@ -26,6 +26,9 @@ namespace QuanLiKhoHang_DoAnWeb.Models
         [Display(Name = "Ngày đặt hàng")]
         public DateTime OrderDate { get; set; }
 
+        [Display(Name = "Xác nhận")]
+        public bool isConfirmed { get; set; }
+
         [Display(Name = "Tổng cộng")]
         public float Total { get; set; }
     }

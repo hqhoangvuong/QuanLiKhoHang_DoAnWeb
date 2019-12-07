@@ -18,6 +18,7 @@ namespace QuanLiKhoHang_DoAnWeb.Models
         [Display(Name = "Chú thích")]
         public string Description { get; set; }
 
+        [Display(Name = "Nhà cung ứng")]
         [ForeignKey("VendorId")]
         public virtual Vendors vendor { get; set; }
 

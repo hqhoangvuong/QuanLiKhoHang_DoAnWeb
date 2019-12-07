@@ -77,7 +77,6 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
                                                Total = q.Total
                                            };
                                                                     
-
             if (SaleOrderVM.saleOrder == null)
             {
                 return NotFound();
@@ -90,6 +89,70 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
         public ActionResult CreateDetails(string id)
         {
             return RedirectToAction("Create", "SaleOrderDetails", new { id = id});
+        }
+
+        public async Task<IActionResult> Delete(int? Id)
+        {
+            if (Id == null)
+                return NotFound();
+
+            var saleOrder = await _db.saleOrders.FindAsync(Id);
+            if (saleOrder == null)
+                return NotFound();
+
+            return View(saleOrder);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var saleOrder = await _db.saleOrders.FindAsync(id);
+            int saleOrderDetailCount = _db.saleOrderDetails.Count(m => m.SaleOrderId == id);
+
+            if (saleOrderDetailCount != 0)
+            {
+                SetAlert("Lỗi, không thể xóa mục này. Vui lòng kiểm chắc chắn lệnh này trống và thử lại", "error");
+            }
+            else
+            {
+                _db.saleOrders.Remove(saleOrder);
+                await _db.SaveChangesAsync();
+                SetAlert("Xóa thành công", "success");
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        protected void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
+
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+        }
+
+        public IActionResult OrderConfirmation(int? id)
+        {
+            if (id == null)
+            {
+                SetAlert("Đã xảy ra lỗi khi xác nhận đơn hàng", "error");
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                var SaleOrder = _db.saleOrders.Where(m => m.Id == id).FirstOrDefault();
+                SaleOrder.isConfirmed = true;
+                _db.SaveChanges();
+                SetAlert("Xác nhận thành công đơn hàng id = " + id, "success");
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

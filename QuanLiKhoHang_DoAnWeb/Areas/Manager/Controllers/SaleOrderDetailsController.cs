@@ -42,10 +42,14 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
             {
                 return View(SaleOrderDetailsVM);
             }
+
             var result = _db.products.SingleOrDefault(b => b.Id == SaleOrderDetailsVM.saleOrderDetail.ExportProductId);
+            var saleOrder = _db.saleOrders.SingleOrDefault(b => b.Id == SaleOrderDetailsVM.saleOrderDetail.SaleOrderId);
+
             if (result != null)
             {
                 result.Stock -= SaleOrderDetailsVM.saleOrderDetail.Quantity;
+                saleOrder.Total += (float)SaleOrderDetailsVM.saleOrderDetail.Total;
                 await _db.SaveChangesAsync();
             }
 

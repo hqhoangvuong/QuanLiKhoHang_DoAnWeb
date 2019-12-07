@@ -1,0 +1,113 @@
+﻿@model QuanLiKhoHang_DoAnWeb.Models.ViewModels.ShoppingCartViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form method="post">
+    <br /><br />
+    <h2 class="text-info">Giỏ hàng của bạn</h2>
+    <br />
+    @if (Model.products.Count > 0)
+    {
+        <div class="container border border-secondary rounded" style="padding:15px;">
+            <div class="row">
+                <div class="col-8" style="border-right:1px solid #bbb9b9;">
+                    <table class="table table-striped" width="100%">
+                        <tr class="table-info">
+                            <th style="text-align:center; width:20%"></th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.products.FirstOrDefault().Name"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.products.FirstOrDefault().DefaultSellingPrice"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.products.FirstOrDefault().ProductTypes.Name"></label>
+                            </th>
+                            <th style="text-align:center;">
+                                <label asp-for="@Model.products.FirstOrDefault().Stock">Số lượng</label>
+                            </th>
+                            <th style="text-align:center;"></th>
+                        </tr>
+                        @foreach (var item in Model.products)
+                        {
+                    <tr style="padding:50px;">
+                        <td>
+                            <a asp-area="Client" asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                <img src="@item.ProductImageUrl" width="100%" style="margin:auto; display:block; border-radius:5px; border:1px solid #bbb9b9;" />
+                            </a>
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Name)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.DefaultSellingPrice)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.ProductTypes.Name)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(c => item.Stock)
+                        </td>
+                        <td style="text-align:center">
+                            <button type="submit" class="btn btn-danger" asp-action="remove" asp-route-id="@item.Id">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                        }
+                    </table>
+                </div>
+                <div class="col-4" style="padding-left:30px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Họ tên </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.client.Name" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Giới tính </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.client.Sex" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Địa chỉ </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.client.Address" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Số điện thoại </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.client.Phone" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Email </label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.client.Email" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <label>Chú thích</label>
+                        </div>
+                        <div class="col-12" style="padding-bottom:15px">
+                            <input asp-for="@Model.Description" class="form-control" />
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" id="btnPlaceOrder" class="btn btn-success">Đặt hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div>Chưa có sản phẩm nào được thêm vào giỏ hàng!</div>
+    }
+</form>

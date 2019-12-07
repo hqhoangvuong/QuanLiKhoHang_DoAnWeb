@@ -80,6 +80,10 @@
         <br />
         <div class="form-group">
             <a asp-action="Index" class="btn btn-success">Quay lại</a>
+            @if (Model.saleOrder.isConfirmed == false)
+            {
+                <a asp-action="OrderConfirmation" asp-route-id="@Model.saleOrder.Id" class="btn btn-warning">Xác nhận đơn hàng</a>
+            }
         </div>
     </div>
 </div>

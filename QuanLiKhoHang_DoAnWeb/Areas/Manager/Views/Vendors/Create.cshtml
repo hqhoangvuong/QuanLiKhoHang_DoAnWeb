@@ -3,6 +3,8 @@
     ViewData["Title"] = "CreateClient";
 }
 
+@Html.Raw(TempData["msg"])
+
 <h1>Tạo ngành hàng mới</h1>
 
 <form method="post" asp-action="Create">

@@ -1,0 +1,84 @@
+﻿@model QuanLiKhoHang_DoAnWeb.Models.ViewModels.ShoppingCartViewModel
+@using System.Globalization
+
+@{
+    ViewData["Title"] = "AppointmentConfirmation";
+}
+
+<br />
+<h2 class="text-info">Appointment Confirmation</h2>
+<div class="form-text">
+    Đơn hàng của bạn đã được gửi đi. Nhân viên của chúng tôi sẽ xem xét và liên hệ cho bạn theo số điện thoại được cung cấp trong thời gian ngắn nhất.
+</div>
+<br />
+
+@{int id = Model.saleOrder.Id; }
+<div class="p-4 border rounded row">
+    <div class="col-8">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="saleOrder.client"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="saleOrder.client.Name" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="saleOrder.Description"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="saleOrder.Description" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="saleOrder.OrderDate"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="saleOrder.OrderDate" type="datetime-local" class="form-control" />
+            </div>
+        </div>
+        <br />
+        <br />
+        <div>
+            <table class="table table-striped border">
+                <tr class="table-info">
+                    <th>
+                        @Html.DisplayName("Tên sản phẩm")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Ghi chú")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Số lượng")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Đơn giá")
+                    </th>
+                </tr>
+                @foreach (var item in Model.saleOrderDetails)
+                {
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.product.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Quantity)
+                        </td>
+                        <td>
+                            @{
+                                CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+                            }
+                            @String.Format(cul.NumberFormat, "{0:c}", item.Total)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <a asp-area="Client" asp-controller="Home" asp-action="Index" class="btn btn-success"> Quay lại</a>

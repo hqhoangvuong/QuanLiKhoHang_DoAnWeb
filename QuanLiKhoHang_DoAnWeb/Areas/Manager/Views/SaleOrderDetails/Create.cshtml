@@ -6,63 +6,72 @@
 }
 
 <br />
-<h2 class="text-info">Thêm danh mục hàng xuất kho</h2>
+<body onload="GetProductPrice()">
+    <h2 class="text-info">Thêm danh mục hàng xuất kho</h2>
 
-<form method="post" enctype="multipart/form-data">
-    <div class="p-4 border rounded">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="saleOrderDetail.SaleOrderId"></label>
+    <form method="post" enctype="multipart/form-data">
+        <div class="p-4 border rounded">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="saleOrderDetail.SaleOrderId"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="saleOrderDetail.SaleOrderId" class="form-control" />
+                </div>
             </div>
-            <div class="col-5">
-                <input asp-for="saleOrderDetail.SaleOrderId" class="form-control" />
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="saleOrderDetail.ExportProductId"></label>
+                </div>
+                <div class="col-5">
+                    <select id="ProductSelection" asp-for="@Model.saleOrderDetail.ExportProductId" asp-items="Model.product.ToSelectListItem(Model.saleOrderDetail.ExportProductId)" class="form-control" onchange="GetProductPrice()"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="saleOrderDetail.Description"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="saleOrderDetail.Description" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="saleOrderDetail.Quantity"></label>
+                </div>
+                <div class="col-5">
+                    <input id="input_quantity" runat="server" asp-for="saleOrderDetail.Quantity" onkeyup="AutoPrice()" ClientMode="Static" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="saleOrderDetail.Total"></label>
+                </div>
+                <div class="col-5">
+                    <input id="Total_Input" asp-for="saleOrderDetail.Total" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" asp-route-id="@Model.saleOrderDetail.SaleOrderId" value="Tạo" />
+                <button type="button" class="btn btn-success" data-toggle="modal" id="ajaxSubmit">Quay lại danh sách</button>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="saleOrderDetail.ExportProductId"></label>
-            </div>
-            <div class="col-5">
-                <select id="ProductSelection" asp-for="@Model.saleOrderDetail.ExportProductId" asp-items="Model.product.ToSelectListItem(Model.saleOrderDetail.ExportProductId)" class="form-control" onchange="GetProductPrice()"></select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="saleOrderDetail.Description"></label>
-            </div>
-            <div class="col-5">
-                <input asp-for="saleOrderDetail.Description" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="saleOrderDetail.Quantity"></label>
-            </div>
-            <div class="col-5">
-                <input id="input_quantity" runat="server" asp-for="saleOrderDetail.Quantity" onkeyup="AutoPrice()" ClientMode="Static" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="saleOrderDetail.Total"></label>
-            </div>
-            <div class="col-5">
-                <input id="Total_Input" asp-for="saleOrderDetail.Total" class="form-control" />
-            </div>
-        </div>
-        <br />
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" asp-route-id="@Model.saleOrderDetail.SaleOrderId" value="Create" />
-            <a asp-action="Index" class="btn btn-success">Back to List</a>
-        </div>
-    </div>
-</form>
+    </form>
+</body>
 
-@Html.Hidden("myVar", 0);
+@Html.Hidden("myVar", 0)
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ajaxSubmit").click(function () {
+            window.history.go(-1);
+        });
+    });
+</script>
 }
 
 <script type="text/javascript">
@@ -96,3 +105,5 @@
         console.log(myVar.value);
     }
 </script>
+
+

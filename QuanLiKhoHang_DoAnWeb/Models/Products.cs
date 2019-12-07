@@ -40,6 +40,7 @@ namespace QuanLiKhoHang_DoAnWeb.Models
         [DisplayName("Chú thích")]
         public string Description { get; set; }
 
+        [DisplayName("Hình minh họa")]
         public string ProductImageUrl { get; set; }
 
         [DisplayName("Số lưu kho")]

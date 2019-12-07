@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using QuanLiKhoHang_DoAnWeb.Data;
 using QuanLiKhoHang_DoAnWeb.Models;
 using QuanLiKhoHang_DoAnWeb.Utility;
+using System.Web;
 
 namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
 {
@@ -72,6 +73,23 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
             return View(vendor);
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vendor = await _db.vendors.FindAsync(id);
+
+            if (vendor == null)
+            {
+                return NotFound();
+            }
+
+            return View(vendor);
+        }
+
         [Authorize(Roles = SD.AdminEndUser)]
         public async Task<IActionResult> Delete(int? Id)
         {
@@ -90,9 +108,34 @@ namespace QuanLiKhoHang_DoAnWeb.Areas.Manager.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var vendor = await _db.vendors.FindAsync(id);
-            _db.vendors.Remove(vendor);
-            await _db.SaveChangesAsync();
+            int productCount = _db.products.Count(m => m.VendorId == id);
+
+            if (productCount != 0)
+            {
+                SetAlert("Lỗi, không thể xóa mục này", "error");
+            }
+            else
+            {
+                _db.vendors.Remove(vendor);
+                await _db.SaveChangesAsync();
+                SetAlert("Xóa thành công", "success");
+            }
+
             return RedirectToAction(nameof(Index));
+        }
+
+        protected void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if(type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
+
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
         }
     }
 }

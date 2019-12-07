@@ -32,33 +32,38 @@
             <th>
                 @Html.DisplayNameFor(m => m.Total)
             </th>
+            <th>
+                @Html.DisplayNameFor(m => m.isConfirmed)
+            </th>
             <th></th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(m => item.client.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => item.OrderDate)
-                </td>
-                <td>
-                    @{
-                        CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
-                    }
-                    @String.Format(cul.NumberFormat, "{0:c}", item.Total)
-                </td>
-                <td>
-                    <partial name="_TableButtonPartial" model="item.Id" />
-                </td>
-            </tr>
-
+    <tr>
+        <td>
+            @Html.DisplayFor(m => item.client.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.OrderDate)
+        </td>
+        <td>
+            @{
+                CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+            }
+            @String.Format(cul.NumberFormat, "{0:c}", item.Total)
+        </td>
+        <td>
+            @Html.DisplayFor(m => item.isConfirmed)
+        </td>
+        <td>
+            <partial name="_TableButtonPartial" model="item.Id" />
+        </td>
+    </tr>
         }
     </table>
 </div>

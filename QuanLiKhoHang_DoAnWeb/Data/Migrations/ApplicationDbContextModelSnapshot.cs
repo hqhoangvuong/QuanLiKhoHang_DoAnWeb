@@ -424,6 +424,11 @@ namespace QuanLiKhoHang_DoAnWeb.Data.Migrations
                     b.Property<float>("Total")
                         .HasColumnType("real");
 
+                    b.Property<bool>("isConfirmed")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");

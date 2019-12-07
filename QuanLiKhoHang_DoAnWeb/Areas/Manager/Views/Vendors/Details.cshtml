@@ -1,0 +1,55 @@
+﻿@model QuanLiKhoHang_DoAnWeb.Models.Vendors
+@using QuanLiKhoHang_DoAnWeb.Extensions
+
+<br />
+<h2 class="text-info">Product Details</h2>
+
+<div class="p-4 border rounded row">
+    <div class="col-8">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Name"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Name" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Address"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Address" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="ContactPerson"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="ContactPerson" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Email"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Email" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Phone"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Phone" readonly class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <a asp-action="Index" class="btn btn-success">Quay lại danh sách</a>
+        </div>
+    </div>
+
+</div>

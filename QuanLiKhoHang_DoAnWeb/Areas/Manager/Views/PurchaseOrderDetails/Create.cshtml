@@ -1,0 +1,81 @@
+﻿@model QuanLiKhoHang_DoAnWeb.Models.ViewModels.PurchaseOrderDetailsViewModel
+@using QuanLiKhoHang_DoAnWeb.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    int producttypeID = 1;
+}
+
+<br />
+<h2 class="text-info">Thêm mới danh mục</h2>
+<form method="post" enctype="multipart/form-data">
+    <div class="p-4 border rounded">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="productTypes"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="@producttypeID" asp-items="Model.productTypes.ToSelectListItem(producttypeID)" class="form-control"></select>
+            </div>
+        </div>
+        @{
+            Model.products = Model.products.Where(m => m.ProductTypeId == producttypeID).ToList();
+        }
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="products"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="@Model.productID" asp-items="Model.products.ToSelectListItem(Model.productID)" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="PurchaseOrderDetail.Description"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="PurchaseOrderDetail.Description" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="PurchaseOrderDetail.Quantity"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="PurchaseOrderDetail.Quantity" class="form-control" />
+                <span asp-validation-for="PurchaseOrderDetail.Quantity" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Create" />
+            <button type="button" class="btn btn-success" data-toggle="modal" id="ajaxSubmit">Quay lại danh sách</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script type="text/javascript">
+        function goBack() {
+            window.history.go(-1);
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $("#ajaxSubmit").click(function ()
+            {
+                    window.history.go(-1);
+            });
+        });
+    </script>
+
+}
+
+

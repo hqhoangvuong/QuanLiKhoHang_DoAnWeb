@@ -19,6 +19,9 @@ namespace QuanLiKhoHang_DoAnWeb.Data
             modelBuilder.Entity<Products>()
                 .Property(a => a.Stock)
                 .HasDefaultValueSql("0");
+            modelBuilder.Entity<SaleOrders>()
+                .Property(a => a.isConfirmed)
+                .HasDefaultValue(false);
         }
 
         public DbSet<ProductTypes> productTypes { get; set; }

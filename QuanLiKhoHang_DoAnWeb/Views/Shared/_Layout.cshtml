@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@using QuanLiKhoHang_DoAnWeb.Extensions;
+@using QuanLiKhoHang_DoAnWeb.Utility;
+@using QuanLiKhoHang_DoAnWeb.Models.ViewModels
+
+@inject IHttpContextAccessor httpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,12 +13,13 @@
     <title>@ViewData["Title"] - QuanLiKhoHang_DoAnWeb</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/240f19c0d0.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QuanLiKhoHang_DoAnWeb</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Inventory Management</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,33 +28,67 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
                         </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="Manager" asp-controller="Products" asp-action="Index">Sản phẩm</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="Manager" asp-controller="Clients" asp-action="Index">Khách hàng</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="Manager" asp-controller="ProductTypes" asp-action="Index">Ngành hàng</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="Manager" asp-controller="SaleOrders" asp-action="Index">Xuất kho</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="Manager" asp-controller="Vendors" asp-action="Index">Nhà cung cấp</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="Manager" asp-controller="PurchaseOrder" asp-action="Index">Nhập kho</a>
-                        </li>
-                    </ul>
+                        @if (User.IsInRole(SD.AdminEndUser))
+                         {
+                            <li>
+                                <a class="nav-link text-dark" asp-area="Manager" asp-controller="Products" asp-action="Index">Sản phẩm</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="Manager" asp-controller="Clients" asp-action="Index">Khách hàng</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="Manager" asp-controller="ProductTypes" asp-action="Index">Ngành hàng</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="Manager" asp-controller="SaleOrders" asp-action="Index">Xuất kho</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="Manager" asp-controller="Vendors" asp-action="Index">Nhà cung cấp</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="Manager" asp-controller="PurchaseOrder" asp-action="Index">Nhập kho</a>
+                            </li>
+                         }
+
+                        @if (httpContextAccessor.HttpContext.Session.Get<List<BuyProductViewModel>>("ssShoppingCart") != null)
+                         {
+                            <li style="color:white">
+                                <a asp-area="Client" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
+                                    <i class="fas fa-shopping-cart"></i> &nbsp;
+                                    @{
+                                        var count = httpContextAccessor.HttpContext.Session.Get<List<BuyProductViewModel>>("ssShoppingCart").Count;
+                                    }
+                                    (@count)
+                                </a>
+                            </li>
+                         }
+                        else
+                        {
+                            @if (!User.IsInRole(SD.AdminEndUser))
+                            {
+                                <li style="color:white">
+                                    <a asp-area="Client" asp-controller="ShoppingCart" asp-action="Index" class="nav-link">
+                                        <i class="fas fa-shopping-cart"></i> &nbsp;
+                                        (0)
+                                    </a>
+                                </li>
+                                }
+                        }
+                        </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if(TempData["AlertMessage"] != null)
+            {
+                <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                    @TempData["AlertMessage"]
+                </div>
+            }
             @RenderBody()
         </main>
     </div>

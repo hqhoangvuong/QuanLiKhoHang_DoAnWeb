@@ -1,0 +1,90 @@
+﻿@model QuanLiKhoHang_DoAnWeb.Models.ViewModels.PurchaseOrdersViewModel
+@using QuanLiKhoHang_DoAnWeb.Extensions
+@using System.Globalization
+<br />
+<h2 class="text-info">Chi tiết đơn hàng</h2>
+
+@{int id = Model.purchaseOrder.Id; int vendorId = Model.purchaseOrder.VendorId;  }
+<div class="p-4 border rounded row">
+    <div class="col-8">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="purchaseOrder.vendor"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="purchaseOrder.vendor.Name" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="purchaseOrder.Description"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="purchaseOrder.Description" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="purchaseOrder.OrderDate"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="purchaseOrder.OrderDate" type="datetime-local" readonly class="form-control" />
+            </div>
+        </div>
+        <br />
+        <div class="col-14 text-right">
+            <a asp-action="CreateDetails" asp-controller="PurchaseOrder" asp-route-id="@id" asp-route-vendorId="@vendorId" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Thêm danh mục </a>
+        </div>
+        <br />
+        <div>
+            <table class="table table-striped border">
+                <tr class="table-info">
+                    <th>
+                        @Html.DisplayName("Tên sản phẩm")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Ghi chú")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Số lượng")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Giá/SP")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Đơn giá")
+                    </th>
+                </tr>
+                @foreach (var item in Model.purchaseOrderDetail)
+                {
+                    var productName = Model.product.First(i => i.Id == item.ImportProductId);
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => productName.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Quantity)
+                </td>
+                <td>
+                    @{
+                        CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
+                    }
+                    @String.Format(cul.NumberFormat, "{0:c}", item.Price)
+                </td>
+                <td>
+                    @String.Format(cul.NumberFormat, "{0:c}", item.Total)
+                </td>
+            </tr>
+                }
+            </table>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <a asp-action="Index" class="btn btn-success">Quay lại</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+﻿@model QuanLiKhoHang_DoAnWeb.Models.Products
+@using QuanLiKhoHang_DoAnWeb.Extensions
+@using Microsoft.AspNetCore.Http
+@using QuanLiKhoHang_DoAnWeb.Models.ViewModels
+
+@inject IHttpContextAccessor HttpContextAccessor
+@{int amount = 1;
+    int stock = Model.Stock;}
+
+<br />
+<h2 class="text-info">Chi tiết mặt hàng</h2>
+
+<form method="post">
+    <div class="p-4 border rounded row">
+        <div class="col-8">
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="DefaultBuyingPrice"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="DefaultBuyingPrice" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ProductTypes"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ProductTypes.Name" class="form-control" readonly />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label>Số lượng mua</label>
+                </div>
+                <div class="col-8">
+                    <input id="amountInput" asp-for="@amount" class="form-control" type="number" min="1" max="@stock" step="1" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    @{
+                        bool isInBag = false;
+                        List<BuyProductViewModel> lstCart = HttpContextAccessor.HttpContext.Session.Get<List<BuyProductViewModel>>("ssShoppingCart");
+
+                        if (lstCart != null && lstCart.Any(n => n.productId == Model.Id))
+                        {
+                            var selected = lstCart.Where(m => m.productId == Model.Id).SingleOrDefault();
+                            amount = selected.amount;
+                            isInBag = true;
+
+                            <script type="text/javascript">
+                                var InputBox = document.getElementById("amountInput");
+                                console.log(@selected.amount);
+                                InputBox.value = @selected.amount;
+                            </script>
+                        }
+                    }
+
+                    @if (isInBag)
+                    {
+                        <button style="margin:5px" type="submit" value="Edit" asp-action="Edit" asp-route-id="@Model.Id" asp-route-amount="@amount" class="btn btn-primary form-control">Chỉnh sửa</button>
+                        <button style="margin:5px" type="submit" value="Remove From Bag" asp-action="remove" asp-route-id="@Model.Id" class="btn btn-danger form-control">Xóa khỏi giỏ hàng</button>
+                    }
+                    else
+                    {
+                        <button type="submit" value="Add to Bag" asp-route-id="@Model.Id" asp-route-amount="@amount" class="btn btn-primary form-control">Thêm vào giỏ hàng</button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-1">
+
+        </div>
+
+        <div class="col-3">
+            <img src="@Model.ProductImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
+            <br /><br />
+            @if (Model.Stock > 0)
+            {
+                <button type="button" class="btn btn-primary">Số sản phẩm còn lại: <span class="badge badge-light">@Model.Stock</span></button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-primary">Hết hàng!</button>
+            }
+        </div>
+
+        <br />
+        <div class="form-group">
+            <input hidden asp-for="Id" />
+            <a asp-action="Index" class="btn btn-success">Quay lại</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+    </script>
+}
+
+
+
+

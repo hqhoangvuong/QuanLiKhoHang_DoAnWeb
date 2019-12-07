@@ -1,7 +1,42 @@
-﻿
+﻿@model QuanLiKhoHang_DoAnWeb.Models.Products
 @{
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Xoá ngành hàng</h1>
+<br />
+<h2 class="text-info">Bạn có thật sự muốn mặt hàng này?</h2>
+
+<form method="post" asp-action="Delete">
+    <div class="p-4 border rounded">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group row">
+            <div class="col-3 ">
+                <label asp-for="Name"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Name" disabled />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3 ">
+                <label asp-for="Description"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Description" disabled />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" asp-route-id="@Model.Id" value="Xoá" />
+            <a asp-action="Index" class="btn btn-success">Quay lại</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 

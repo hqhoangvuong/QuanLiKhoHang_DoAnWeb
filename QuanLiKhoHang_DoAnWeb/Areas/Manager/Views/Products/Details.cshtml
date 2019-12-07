@@ -1,0 +1,76 @@
+﻿@model QuanLiKhoHang_DoAnWeb.Models.ViewModels.ProductsViewModel
+@using QuanLiKhoHang_DoAnWeb.Extensions
+
+<br />
+<h2 class="text-info">Product Details</h2>
+
+<div class="p-4 border rounded row">
+    <div class="col-8">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="product.Name"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="product.Name" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="product.DefaultBuyingPrice"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="product.DefaultBuyingPrice" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="product.DefaultSellingPrice"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="product.DefaultSellingPrice" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="productType"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="product.ProductTypes.Name" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="product.Description"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="product.Description" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="product.SKU"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="product.SKU" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="product.Stock"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="product.Stock" readonly class="form-control" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-4">
+        <img src="@Model.product.ProductImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9;" />
+    </div>
+
+    <div class="form-group">
+        <a asp-action="Index" class="btn btn-success">Quay lại danh sách</a>
+    </div>
+
+</div>
